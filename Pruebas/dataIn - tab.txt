@@ -1,0 +1,2 @@
+publico clase Ejemplo	entero ventas, enmoda	real total	publico estatico vacio metodo principal()	entero n1, n2, n3, suma = 0, n	entero i, sw = 0	boleano s	texto linea	suma = 5**2	suma = n1 + (5*3) + 5**2 mod 6	imprima(suma)	imprima("Ingrese valor de suma ")	lea suma	imprima(suma)	imprima("Gracias ")	finprincipal	finclase
+**logicodefinlectura**

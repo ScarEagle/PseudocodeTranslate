@@ -1,0 +1,92 @@
+publico clase Ejemplo
+	
+	entero ventas, enmodarv
+	real total
+
+	publico estatico vacio metodo principal()
+
+		entero n1, n2, n3, suma = 0, n
+		entero i, sw = 0
+		boleano s
+		texto linea
+
+		suma = 5**2
+		suma = n1 + (5*3) + 5**2 mod 6
+		imprima(suma)
+		imprima("Ingrese valor de suma ")
+		lea suma
+		imprima("Ingrese nombre alumno ")
+		lea linea
+		imprima("Ingrese estado de matricula ")
+		lea s
+		imprima("Digite cantidad de usuarios ")
+		lea n
+		imprima("Ingrese valor ventas")
+		lea ventas
+		imprima("Ingrese valor total ")
+		lea total
+		imprima("ingrese valor enmodarv ")
+		lea enmodarv
+		suma = enmodarv**n
+		imprima(suma)
+
+		si(enmodarv mod 2 >= 2 ^ ventas <> 10)
+			imprima(enmodarv + ventas)
+		finsi
+		si(ventas < 10 v enmodarv mod 2 < 2)
+			imprima(enmodarv - ventas)
+		finsi
+
+		para(i=1;i<=n;i=i+1)
+
+			imprima("Digite nota 1")
+			lea n1
+			imprima("Digite nota 2")
+			lea n2
+			imprima("Digite nota 3")
+			lea n3
+			suma = (n1+n2+n3)/3
+
+			si(sw==0)
+				suma = suma + 1
+				sw = 1
+			sino
+				suma = suma + 2
+				sw = 0
+			finsi
+
+			segun(suma)
+
+				caso 1:
+					imprima("Perdio")
+					salto
+				caso 3:
+					imprima("Gano")
+					salto
+				caso 5:
+					imprima("Excelente")
+					salto
+				en otro caso:
+					imprima("ERROR")
+					salto
+			finsegun
+		finpara
+
+		calcular(a, b, c)
+	finprincipal
+
+publico estatico vacio metodo calcular(entero n1, entero n2, entero n3)
+
+finmetodo
+
+publico estatico vacio metodo calcular(real n2, real n2, real n3)
+finmetodo
+
+public estatico vacio metodo calcular(texto n1, texto n2, texto n3)
+finmetodo
+
+public estatico vacio metodo calcular(texto n1, entero n2, real n3, boolean n4)
+finmetodo
+
+finclase
+**logicodefinlectura**
