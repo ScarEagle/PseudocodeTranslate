@@ -7,6 +7,8 @@ package pseudocodetranslate.Control;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,6 +24,7 @@ public class ctrTranslate {
     private List<String> newCode;
     private List<String[]> savedliteralText;
     private List<String[]> savedVariableType;
+    private int countTranlated;
     
     public ctrTranslate(){
         oRules = new ctrRulesTranslate();
@@ -44,18 +47,16 @@ public class ctrTranslate {
             error = oCode.error;
             return null;
         }
-        oRules.ReadFile();
-        newCode = oCode.originalCode;
-        SplitLiteralText();
-        ReplaceKeyWords();
-        SetSemicolon();
-        RestoreLiteralText();
-        AddImportLibraries();
-        return GetCodeTranslate();
+        return Translate();
     }
     
     public String DoTranslateFromFile(){
         oCode.GetLinesFile();
+        return Translate();
+    }
+    
+    
+    public String Translate(){
         oRules.ReadFile();
         newCode = oCode.originalCode;
         SplitLiteralText();
@@ -63,7 +64,13 @@ public class ctrTranslate {
         SetSemicolon();
         RestoreLiteralText();
         AddImportLibraries();
-        return GetCodeTranslate();
+        if (countTranlated > 5) {
+            return GetCodeTranslate();
+        }else{
+            //error = "Code entered not is pseudocode";
+            error = "Código ingresado no es pseudocódigo";
+            return null;
+        }
     }
     
     private void AddImportLibraries(){
@@ -94,34 +101,43 @@ public class ctrTranslate {
     }
     
     private void ReplaceKeyWords(){
+        countTranlated = 0;
         int iRule = 0;
         for (int i = 0; i < newCode.size(); i++) {
             for (String rule[] : oRules.rule) {
                 if (newCode.get(i).contains(rule[1])) {
                     switch (rule[0]) {
                         case "0":
+                            countTranlated++;
                             newCode.set(i, newCode.get(i).replace(rule[1], rule[2]));
                             break;
                         case "1":
+                            countTranlated++;
                             newCode.set(i, newCode.get(i).replace(rule[1], rule[2]));
                             newCode.set(i, ReplaceKeyWordWithPattern(rule[3], rule[4], newCode.get(i)));
                             break;
                         case "2":
+                            countTranlated++;
                             newCode.set(i, ReplaceKeyWordWithPattern(rule[2], rule[3], rule[4], rule[5], newCode.get(i)));
                             break;
                         case "3":
+                            countTranlated++;
                             newCode.set(i, newCode.get(i).replaceAll(rule[2], rule[3]));
                             break;
                         case "4":
+                            countTranlated++;
                             newCode.set(i, newCode.get(i).replace(rule[1], rule[2]));
                             GetVariables(rule[2], rule[3], rule[4], newCode.get(i));
-                            if (AplyPattern(oRules.getNestedRule(iRule), newCode.get(i))) {
+                            if (NeedNestedRule(oRules.getNestedRule(iRule), newCode.get(i))) {
                                 newCode.set(i, ReplaceKeyWordWithPattern(rule[3], rule[5], newCode.get(i)));
                             }
                             break;
                         case "5":
-                            newCode.set(i, ReplaceKeyWordWithPatternAndMultipleRules(rule[1], rule[2], rule[3], oRules.getNestedRule(iRule), newCode.get(i)));
-                            break;
+                            countTranlated++;
+                            if (!savedVariableType.isEmpty()) {
+                                newCode.set(i, ReplaceKeyWordWithPatternAndMultipleRules(rule[1], rule[2], rule[3], oRules.getNestedRule(iRule), newCode.get(i)));
+                                break;
+                            }
                     }
                 }
                 iRule++;
@@ -130,7 +146,7 @@ public class ctrTranslate {
         }
     }
     
-    private boolean AplyPattern(List<String[]> list, String code){
+    private boolean NeedNestedRule(List<String[]> list, String code){
         boolean flag = false;
         for (String[] l : list) {
             if (l[1].contentEquals("<>")) {

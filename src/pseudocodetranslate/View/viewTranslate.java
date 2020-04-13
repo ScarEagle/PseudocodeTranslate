@@ -279,7 +279,10 @@ public class viewTranslate extends javax.swing.JFrame {
         int resultado = selectorArchivos.showOpenDialog(this);
         
         if (resultado == 0) {
-            lblPathFileTranslate.setText(selectorArchivos.getSelectedFile().getAbsolutePath());
+            txtTranslateCode.setText("");
+            String path = selectorArchivos.getSelectedFile().getAbsolutePath();
+            
+            lblPathFileTranslate.setText(path);
             
             oFile = new ctrCodeToTranslate(lblPathFileTranslate.getText());
             infoFile = oFile.GetLinesFile();
