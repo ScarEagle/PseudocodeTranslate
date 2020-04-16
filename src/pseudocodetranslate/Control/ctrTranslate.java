@@ -274,7 +274,7 @@ public class ctrTranslate {
                 return var;
             }
         }
-        return null;
+        return new String[0];
     }
     
     private void SplitLiteralText(){
