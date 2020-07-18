@@ -5,6 +5,8 @@
  */
 package pseudocodetranslate.View;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import pseudocodetranslate.Control.ctrCodeToTranslate;
@@ -271,7 +273,12 @@ public class viewTranslate extends javax.swing.JFrame {
     private void lblPathFileTranslateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPathFileTranslateMouseClicked
         // TODO add your handling code here:
         String infoFile;
-        JFileChooser selectorArchivos = new JFileChooser();
+        String recentPath = lblPathFileTranslate.getText();
+        if (recentPath.contains("Clic para activar el explorador")) {
+            recentPath = "";
+        }
+        
+        JFileChooser selectorArchivos = new JFileChooser(recentPath);
         
         selectorArchivos.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         

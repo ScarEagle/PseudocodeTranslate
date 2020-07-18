@@ -25,6 +25,7 @@ public class ctrTranslate {
     private List<String[]> savedliteralText;
     private List<String[]> savedVariableType;
     private int countTranlated;
+    private boolean flagClase;
     
     public ctrTranslate(){
         oRules = new ctrRulesTranslate();
@@ -106,6 +107,13 @@ public class ctrTranslate {
         for (int i = 0; i < newCode.size(); i++) {
             for (String rule[] : oRules.rule) {
                 if (newCode.get(i).contains(rule[1])) {
+                    String lineCode = newCode.get(i);
+                    if (lineCode.contains("finclase") || lineCode.contains("principal") || lineCode.contains("metodo")) {
+                        flagClase = false;
+                    }
+                    if (lineCode.contains("finmetodo") || lineCode.contains("finprincipal") || lineCode.contains("clase")) {
+                        flagClase = true;
+                    }
                     switch (rule[0]) {
                         case "0":
                             countTranlated++;
@@ -126,7 +134,11 @@ public class ctrTranslate {
                             break;
                         case "4":
                             countTranlated++;
-                            newCode.set(i, newCode.get(i).replace(rule[1], rule[2]));
+                            String staticT = "";
+                            if (flagClase) {
+                                staticT = "static ";
+                            }
+                            newCode.set(i, newCode.get(i).replace(rule[1], staticT + rule[2]));
                             GetVariables(rule[2], rule[3], rule[4], newCode.get(i));
                             if (NeedNestedRule(oRules.getNestedRule(iRule), newCode.get(i))) {
                                 newCode.set(i, ReplaceKeyWordWithPattern(rule[3], rule[5], newCode.get(i)));
@@ -163,13 +175,17 @@ public class ctrTranslate {
         String[] nameVariables;
         List<String[]> variables = UsePattern(pattern, lineText);
         String tempVariables;
+        String typeVariables = "normal";
+        if (lineText.contains("[")) {
+            typeVariables = "arreglo";
+        }
         if (variables != null && variables.size() > 0) {
             for (int i = 0; i < variables.size(); i++) {
                 tempVariables = variables.get(i)[0].replace(type, "").trim();
                 nameVariables = tempVariables.split(token);
                 if (nameVariables.length > 0) {
                     for (String nameVariable : nameVariables) {
-                        savedVariableType.add( new String[]{ type, nameVariable.trim()});
+                        savedVariableType.add( new String[]{ type, nameVariable.trim().replaceAll("(\\[\\])", ""), typeVariables, "0"});
                     }
                 }
             }
@@ -197,7 +213,7 @@ public class ctrTranslate {
         saveText = UsePattern(pattern, newLineText);
         if (saveText != null && saveText.size() > 0) {
             for (int i = 0; i < saveText.size(); i++) {
-                newWord = finalWordKeyReplace.replace(".?", saveText.get(i)[0].replace(wordToReplace, wordSpecified));
+                newWord = finalWordKeyReplace.replace(".?", saveText.get(i)[0].replaceAll(wordToReplace, wordSpecified));
                 
                 lengthLine = newLineText.length();
                 startTempLine = newLineText.substring(0, Integer.parseInt(saveText.get(i)[1])+difLength );
@@ -271,6 +287,7 @@ public class ctrTranslate {
     private String[] GetVariable(String name){
         for (String[] var : savedVariableType) {
             if (var[1].contentEquals(name)) {
+                var[3] = "1";
                 return var;
             }
         }
@@ -280,7 +297,8 @@ public class ctrTranslate {
     private void SplitLiteralText(){
         List<String[]> saveText;
         String line, key, newLine;
-        String pattern = "(['\"].*?['\"])";
+        //String pattern = "(['\"].*?['\"])";
+        String pattern = "([\"].*?[\"])";
         for (int i=0; i < newCode.size(); i++) {
             line = newCode.get(i);
             saveText = UsePattern(pattern, line);

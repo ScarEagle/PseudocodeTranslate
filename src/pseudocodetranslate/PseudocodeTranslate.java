@@ -17,8 +17,9 @@ public class PseudocodeTranslate {
 
     /**
      * @param args the command line arguments
+     * @throws java.lang.Exception
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         String translateCode;
         Scanner reader = new Scanner(System.in);
    
@@ -45,7 +46,8 @@ public class PseudocodeTranslate {
             ctrTranslate oTrans = new ctrTranslate();
             translateCode = oTrans.DoTranslateFromConsole();
             if(translateCode == null){
-                System.out.println(oTrans.error);
+                throw new Exception(oTrans.error);
+                //System.out.println(oTrans.error);
             }
             else{
                 System.out.println(translateCode);
