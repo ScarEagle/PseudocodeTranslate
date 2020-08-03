@@ -95,8 +95,10 @@ public class ctrTranslate {
         String code;
         for (int i = 0; i < newCode.size(); i++) {
             code = newCode.get(i).trim();
-            if (!code.endsWith(":") && !code.endsWith("{") && !code.endsWith("}") && !code.endsWith(";")) {
-                newCode.set(i, newCode.get(i).concat(";"));
+            if (!code.isEmpty()) {
+                if (!code.endsWith(":") && !code.endsWith("{") && !code.endsWith("}") && !code.endsWith(";")) {
+                    newCode.set(i, newCode.get(i).concat(";"));
+                }
             }
         }
     }
@@ -267,6 +269,10 @@ public class ctrTranslate {
                 if (variable.length > 0) {
                     for (String[] token : tokens) {
                         if (token[1].contentEquals(variable[0])) {
+                            newText = variable[1] + token[2];
+                            break;
+                        }
+                        if (token[1].contentEquals(variable[2])) {
                             newText = variable[1] + token[2];
                             break;
                         }

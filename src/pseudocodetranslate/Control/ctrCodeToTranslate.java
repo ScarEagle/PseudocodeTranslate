@@ -153,11 +153,20 @@ public class ctrCodeToTranslate {
         String[] tempSplit;
         List<String> temp = new ArrayList<>();
         for (String code : originalCode) {
-            if (!code.isEmpty() || code.contentEquals("\\t")) {
+            /*if (!code.isEmpty() || code.contentEquals("\\t")) {
                 tempSplit = code.split("\\t");
                 if (tempSplit.length > 0) {
                     temp.add(code);
                 }
+            }*/
+            if (code.contentEquals("\\t")) {
+                tempSplit = code.split("\\t");
+                if (tempSplit.length > 0) {
+                    temp.add(code);
+                }
+            }else{
+                //quitar espacios al final
+                temp.add(code.replaceAll("\\s*$",""));
             }
         }
         originalCode = temp;
