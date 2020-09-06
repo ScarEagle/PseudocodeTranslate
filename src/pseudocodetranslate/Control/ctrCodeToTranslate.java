@@ -54,7 +54,7 @@ public class ctrCodeToTranslate {
     }
     
     private boolean ReadFromConsole(){
-        Scanner read = new Scanner(System.in);
+        Scanner read = new Scanner(System.in, "IBM850");
         String linea;
         boolean flag = true;
 
