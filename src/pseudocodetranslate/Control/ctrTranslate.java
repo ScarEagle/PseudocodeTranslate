@@ -312,7 +312,8 @@ public class ctrTranslate {
                 for (int j = 0; j < saveText.size(); j++) {
                     key = "¿LiteralString[" + i + "-" + j + "]?";
                     savedliteralText.add( new String[]{ saveText.get(j)[0], key});
-                    newLine = line.replaceFirst(saveText.get(j)[0], key);
+                    //newLine = line.replaceFirst(saveText.get(j)[0], key);
+                    newLine = Pattern.compile(pattern).matcher(line).replaceFirst(key);
                     newCode.set(i, newLine);
                     line = newLine;
                 }
