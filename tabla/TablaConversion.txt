@@ -16,7 +16,7 @@
 "0";"metodo ";""
 "0";"principal()";"main(String[] args){"
 "0";"en otro caso:";"default:"
-"1";"clase";"class";"(class\s(\w+[\ñ\Ñ]?)+[^\s])";".?{"
+"1";"clase";"class";"(class\s(.)+[^\s])";".?{"
 "1";"para";"for";"(for\(.*\))|(for\s\(.*\))";".?{"
 "1";"mientrasque";"}while";"(}while\(.*?\))|(}while\s\(.*?\))";".?;"
 "1";"mientras";"while";"(while\(.*?\))|(while\s\(.*?\))";".?{"

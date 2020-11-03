@@ -263,7 +263,7 @@ public class viewTranslate extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(iconCheckBreakLine.isEnabled() || iconCheckTab.isEnabled()){
             ctrTranslate oTra = new ctrTranslate(lblPathFileTranslate.getText());
-            txtTranslateCode.setText(oTra.DoTranslateFromFile());
+            txtTranslateCode.setText(oTra.DoTranslateFromFile()[0]);
             if (oTra.error != null) {
                 ShowAlertError("Error!!!", oTra.error);
             }

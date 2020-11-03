@@ -43,7 +43,7 @@ public class ctrTranslate {
         savedVariableType = new ArrayList<>();
     }
     
-    public String DoTranslateFromConsole(){
+    public String[] DoTranslateFromConsole(){
         if(!oCode.GetLinesConsole()){
             error = oCode.error;
             return null;
@@ -51,13 +51,13 @@ public class ctrTranslate {
         return Translate();
     }
     
-    public String DoTranslateFromFile(){
+    public String[] DoTranslateFromFile(){
         oCode.GetLinesFile();
         return Translate();
     }
     
     
-    public String Translate(){
+    public String[] Translate(){
         oRules.ReadFile();
         newCode = oCode.originalCode;
         SplitLiteralText();
@@ -178,7 +178,7 @@ public class ctrTranslate {
         List<String[]> variables = UsePattern(pattern, lineText);
         String tempVariables;
         String typeVariables = "normal";
-        if (lineText.contains("[")) {
+        if (lineText.contains("[") && !lineText.contains("LiteralString")) {
             typeVariables = "arreglo";
         }
         if (variables != null && variables.size() > 0) {
@@ -291,10 +291,19 @@ public class ctrTranslate {
     }
     
     private String[] GetVariable(String name){
+        String name2 = "";
         for (String[] var : savedVariableType) {
             if (var[1].contentEquals(name)) {
                 var[3] = "1";
                 return var;
+            }
+            if (var[2].equals("arreglo")) {
+                name2 = name.substring(0, name.indexOf("["));
+                if (var[1].contentEquals(name2)) {
+                    var[3] = "1";
+                    var[1] = name;
+                    return var;
+                }
             }
         }
         return new String[0];
@@ -342,11 +351,15 @@ public class ctrTranslate {
         }
     }
     
-    private String GetCodeTranslate(){
-        String t = "";
+    private String[] GetCodeTranslate(){
+        String[] resp = {"",""};
         for (String code : newCode) {
-           t+=code + "\n";
+           resp[0]+=code + "\n";
         }
-        return t;
+        for (String code : oCode.originalCode) {
+           resp[1]+=code + "\n";
+        }
+        
+        return resp;
     }
 }

@@ -54,6 +54,8 @@ public class ctrRulesTranslate {
                 InputStreamReader file = new InputStreamReader(new FileInputStream(pathFile),"UTF-8");
                 Scanner read = new Scanner(file);
                 String linea;
+                //String telefono1= request.getParameter("telefono").toString().toUpperCase();
+                //String telefono = new String(telefono1.getBytes("ISO-8859-1"), "UTF-8");
                 while (read.hasNextLine()) {
                     linea = read.nextLine();
                     rule.add(linea.split("\";\""));

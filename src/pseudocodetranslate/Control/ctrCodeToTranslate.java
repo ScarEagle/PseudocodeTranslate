@@ -54,17 +54,29 @@ public class ctrCodeToTranslate {
     }
     
     private boolean ReadFromConsole(){
-        Scanner read = new Scanner(System.in, "IBM850");
+        //https://docs.oracle.com/javase/8/docs/technotes/guides/intl/encoding.doc.html
+        Scanner read = new Scanner(System.in);
+        //Scanner read = new Scanner(System.in, "IBM850");        
+        //Scanner read = new Scanner(System.in, "Cp1252");
+        //Scanner read = new Scanner(System.in, "US-ASCII");
         String linea;
         boolean flag = true;
 
         while (flag) {
-            linea = read.nextLine();
-            if (linea.endsWith("**logicodefinlectura**")) {
+            //try {
+                //linea = System.console().readLine();
+                linea = read.nextLine();
+                //linea = new String(read.nextLine().getBytes(), "UTF-8");
+                if (linea.endsWith("**logicodefinlectura**")) {
                 flag = false;
-            } else {
-                originalCode.add(linea);
-            }
+                } else {
+                    originalCode.add(linea);
+                }
+            /*} catch (UnsupportedEncodingException ex) {
+                //Logger.getLogger(ctrCodeToTranslate.class.getName()).log(Level.SEVERE, null, ex);
+                error = ex.getMessage();
+                return false;
+            }*/
         }
         return SetParameters();
     }
@@ -82,13 +94,19 @@ public class ctrCodeToTranslate {
                 String linea;
                 while (read.hasNextLine()) {
                     linea = read.nextLine();
+                    //linea = new String(read.nextLine().getBytes("ISO-8859-1"), "UTF-8");
+
                     originalCode.add(linea);
                 }
                 
             } catch (FileNotFoundException e) {
                 error = "Error en el proceso de lectura del archivo a traducir";
                 return false;
-            }
+            }/* catch (UnsupportedEncodingException ex) {
+                //Logger.getLogger(ctrCodeToTranslate.class.getName()).log(Level.SEVERE, null, ex);
+                error = ex.getMessage();
+                return false;
+            }*/
             return SetParameters();
         }
     }

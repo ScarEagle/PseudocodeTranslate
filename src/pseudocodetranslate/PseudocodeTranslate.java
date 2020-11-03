@@ -5,6 +5,12 @@
  */
 package pseudocodetranslate;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.nio.charset.Charset;
+import java.util.Locale;
 import java.util.Scanner;
 import pseudocodetranslate.Control.ctrTranslate;
 import pseudocodetranslate.View.viewTranslate;
@@ -20,7 +26,7 @@ public class PseudocodeTranslate {
      * @throws java.lang.Exception
      */
     public static void main(String[] args) throws Exception {
-        String translateCode;
+        String[] translateCode;
         Scanner reader = new Scanner(System.in);
    
         String opc = reader.nextLine();
@@ -50,9 +56,45 @@ public class PseudocodeTranslate {
                 //System.out.println(oTrans.error);
             }
             else{
-                System.out.println(translateCode);
+                //linea = new String(read.nextLine().getBytes("ISO-8859-1"), "UTF-8");
+                System.out.println(translateCode[0]);
+                //System.out.println(translateCode[1]);
+                //System.out.println(GetDefaultCharset());
+                //System.out.println(translateCode);
+                //System.out.println(Charset.defaultCharset());
             }
+        }
+        // Tradicción sin GUI desde archivo
+        if(opc.contains("4")){
+            //ctrTranslate oTrans = new ctrTranslate();
+            //set path file
+            //translateCode = oTrans.DoTranslateFromFile();
+            //if(translateCode == null){
+                //throw new Exception(oTrans.error);
+                //System.out.println(oTrans.error);
+            //}
+            //else{
+                //linea = new String(read.nextLine().getBytes("ISO-8859-1"), "UTF-8");
+                //System.out.println(translateCode[0]);
+                //System.out.println(translateCode[1]);
+                //System.out.println(GetDefaultCharset());
+                //System.out.println(translateCode);
+                //System.out.println(Charset.defaultCharset());
+            //}
+            System.out.println("modo no disponible");
+        }
+        // Get charset
+        if(opc.contains("3")){
+            System.out.println(GetDefaultCharset());
         }
     }
     
+    private static String GetDefaultCharset(){
+        String charset = "";
+        charset += "Default locale:   " + Locale.getDefault() + "\n";
+        charset += "Default Charset:  " + Charset.defaultCharset() + "\n";
+        charset += "file.encoding:    " + System.getProperty("file.encoding") + "\n";
+        charset += "sun.jnu.encoding: " + System.getProperty("sun.jnu.encoding") + "\n";
+        return charset;
+    }
 }
