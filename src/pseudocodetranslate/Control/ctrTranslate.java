@@ -303,7 +303,7 @@ public class ctrTranslate {
                 return var;
             }
             if (var[2].equals("arreglo")) {
-                name2 = name.substring(0, name.indexOf("["));
+                name2 = name.replaceAll("\\[.\\]", "");
                 if (var[1].contentEquals(name2)) {
                     var[3] = "1";
                     var[1] = name;

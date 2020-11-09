@@ -5,10 +5,6 @@
  */
 package pseudocodetranslate;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.Scanner;

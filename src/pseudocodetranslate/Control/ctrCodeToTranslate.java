@@ -67,8 +67,8 @@ public class ctrCodeToTranslate {
                 //linea = System.console().readLine();
                 linea = read.nextLine();
                 //linea = new String(read.nextLine().getBytes(), "UTF-8");
-                if (linea.endsWith("**logicodefinlectura**")) {
-                flag = false;
+                if (linea.endsWith("**logicodefinlectura**") || linea.contentEquals("logicodefin")) {
+                    flag = false;
                 } else {
                     originalCode.add(linea);
                 }
