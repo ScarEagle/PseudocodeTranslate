@@ -96,8 +96,10 @@ public class ctrTranslate {
         List<String[]> pat;
         for (int i = 0; i < newCode.size(); i++) {
             //replace lines with comments
-            newCode.set(i, newCode.get(i).replaceAll("\\/.+\\/", ""));
-            newCode.set(i, newCode.get(i).replaceAll("\\/*\\/.+", ""));
+            newCode.set(i, newCode.get(i).replaceAll("\\/\\/+.+", ""));
+            //newCode.set(i, newCode.get(i).replaceAll("\\/*\\/.+", ""));
+            /*example*/
+            newCode.set(i, newCode.get(i).replaceAll("\\/\\*.+", ""));
             newCode.set(i, newCode.get(i).replaceAll(".+\\*\\/", ""));
             code = newCode.get(i).trim();
             if (!code.isEmpty()) {
