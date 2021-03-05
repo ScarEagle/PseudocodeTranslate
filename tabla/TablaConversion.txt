@@ -40,7 +40,7 @@
 "0";"<>";"!="
 "0";"^";"&&"
 "3";"v";"(\sv\s)";"||"
-"5";"lea ";"";"(lea .*[^\n\t])";"{int: = new Scanner(System.in).nextInt();,double: = new Scanner(System.in).nextDouble();,boolean: = new Scanner(System.in).nextBoolean();,String: = new Scanner(System.in).nextLine();,char: = new Scanner(System.in).next().charAt(0);}"
+"5";"lea ";"";"(lea [A-z0-9]*[^\n\t\*\-\+\/\s])";"{int: = new Scanner(System.in).nextInt(),double: = new Scanner(System.in).nextDouble(),boolean: = new Scanner(System.in).nextBoolean(),String: = new Scanner(System.in).nextLine(),char: = new Scanner(System.in).next().charAt(0)}"
 "0";"int.ConvertirAEntero";"Integer.parseInt"
 "0";"int.ConvertirATexto";"Integer.toString"
 "0";"double.ConvertirAReal";"Double.parseDouble"
